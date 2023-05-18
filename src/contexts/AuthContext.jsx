@@ -28,12 +28,10 @@ export default function AuthContextProvider({ children }) {
     }
   }, []);
 
-  // if login successful >> เก็บ token, authen เป็น true
   const login = async (input) => {
     const res = await authApi.login(input);
     setAccessToken(res.data.accessToken);
     setAuthenticatedUser(jwtDecode(res.data.accessToken));
-    // send login ไปหลังบ้าน >> set token ที่ Browser >> เอา token มา decode แล้ว update state
   };
 
   const logout = () => {

@@ -7,7 +7,6 @@ import {
   Button,
   Input,
   Password,
-  // IsAdmin,
 } from "../styles/styledLogin";
 import { Errormsg } from "../styles/styledRegister";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,17 +19,12 @@ export default function LoginPage() {
   const initialInput = { userName: "", password: "" };
   const [input, setInput] = useState(initialInput);
   const [error, setError] = useState({});
-  const navigate = useNavigate();
   const { login, authenticatedUser } = useAuth();
+  const navigate = useNavigate();
 
   const handleChangeInput = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-
-  // const handleChecked = (e) => {
-  //   const checked = e.target.checked;
-  //   checked && handleChangeInput(e);
-  // };
 
   const handleSubmitForm = async (e) => {
     try {
@@ -78,10 +72,6 @@ export default function LoginPage() {
           />
           <Errormsg>{error.password}</Errormsg>
 
-          {/* <IsAdmin>
-            <input type="checkbox" value="admin" onChange={handleChecked} />
-            Admin
-          </IsAdmin> */}
           <Button $primary>Login</Button>
         </LoginForm>
         <div className="simple">

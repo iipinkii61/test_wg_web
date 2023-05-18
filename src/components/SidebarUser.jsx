@@ -2,16 +2,16 @@ import { StyledSidebarUser } from "../styles/styledElement";
 import { Button } from "../styles/styledLogin";
 import styled from "styled-components";
 
+const DataInput = styled.input.attrs({ type: "text" })`
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid grey;
+  font-family: "Ysabeau", sans-serif;
+  font-size: 1em;
+  width: 10vw;
+  margin-bottom: 20px;
+`;
 export default function SidebarUser({ isOpen, setIsOpen }) {
-  const DataInput = styled.input.attrs({ type: "text" })`
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid grey;
-    font-family: "Ysabeau", sans-serif;
-    font-size: 1em;
-    width: 10vw;
-    margin-bottom: 20px;
-  `;
   return (
     <StyledSidebarUser>
       <div onClick={() => setIsOpen(!isOpen)}>

@@ -26,10 +26,25 @@ export const NavBar = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 40px;
+  div:first-child {
+    cursor: pointer;
+  }
 `;
 
 export const AdminNavBar = styled(NavBar)`
   background: rgba(177, 102, 204, 0.25);
+`;
+
+export const Toggle = styled.div`
+  position: absolute;
+  top: 40px;
+  left: 5.5vw;
+  padding: 10px 20px;
+  border-radius: 4px;
+  background: ${(props) => (props.$admin ? "#b166cc" : "#69a6f9")};
+  color: white;
+  text-align: center;
+  cursor: pointer;
 `;
 
 export const Table = styled.table`

@@ -3,23 +3,41 @@ import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 import UserPage from "../pages/UserPage";
 import AdminPage from "../pages/AdminPage";
+import SetAsDefaultPage from "../components/SetAsDefaultPage";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <LoginPage />,
+    element: (
+      <SetAsDefaultPage>
+        <LoginPage />
+      </SetAsDefaultPage>
+    ),
   },
   {
     path: "/register",
-    element: <RegisterPage />,
+    element: (
+      <SetAsDefaultPage>
+        <RegisterPage />
+      </SetAsDefaultPage>
+    ),
   },
   {
     path: "/user",
-    element: <UserPage />,
+    element: (
+      <ProtectedRoute>
+        <UserPage />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/admin",
-    element: <AdminPage />,
+    element: (
+      <ProtectedRoute>
+        <AdminPage />
+      </ProtectedRoute>
+    ),
   },
 ]);
 

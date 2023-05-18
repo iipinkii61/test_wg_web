@@ -17,3 +17,10 @@ export const RegisterInput = styled(Input)`
 `;
 
 export const RegisterPW = styled(RegisterInput).attrs({ type: "password" })``;
+
+export const Errormsg = styled.p`
+  color: red;
+  font-size: 14px;
+  position: relative;
+  top: -10px;
+`;

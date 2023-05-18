@@ -29,8 +29,8 @@ export default function AuthContextProvider({ children }) {
   }, []);
 
   // if login successful >> เก็บ token, authen เป็น true
-  const login = async (emailOrMobile, password) => {
-    const res = await authApi.login({ emailOrMobile, password });
+  const login = async (input) => {
+    const res = await authApi.login(input);
     setAccessToken(res.data.accessToken);
     setAuthenticatedUser(jwtDecode(res.data.accessToken));
     // send login ไปหลังบ้าน >> set token ที่ Browser >> เอา token มา decode แล้ว update state
@@ -41,14 +41,8 @@ export default function AuthContextProvider({ children }) {
     setAuthenticatedUser(null);
   };
 
-  const updateProfile = (data) => {
-    setAuthenticatedUser({ ...authenticatedUser, ...data });
-  };
-
   return (
-    <AuthContext.Provider
-      value={{ login, authenticatedUser, logout, updateProfile }}
-    >
+    <AuthContext.Provider value={{ login, authenticatedUser, logout }}>
       {children}
     </AuthContext.Provider>
   );

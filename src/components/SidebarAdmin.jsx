@@ -1,9 +1,9 @@
 import { StyledSidebar, WHtable } from "../styles/styledElement";
 
-export default function SidebarAdmin({ isOpen, setIsOpen }) {
+export default function SidebarAdmin({ setIsOpen, userData }) {
   return (
     <StyledSidebar className="fadeInRight">
-      <div onClick={() => setIsOpen(!isOpen)} className="close">
+      <div onClick={() => setIsOpen(false)} className="close">
         <svg
           viewBox="0 0 24 24"
           width="20px"
@@ -31,34 +31,21 @@ export default function SidebarAdmin({ isOpen, setIsOpen }) {
           </g>
         </svg>
       </div>
-      <p>Firstname's data records</p>
+      <p>{userData.firstName}'s data records</p>
       <WHtable>
         <tbody>
           <tr>
-            <th>Firstname</th>
-            <th>Lastname</th>
-            <th>Savings</th>
+            <th>Weight</th>
+            <th>Height</th>
+            <th>Date</th>
           </tr>
-          <tr>
-            <td>Peter</td>
-            <td>Griffin</td>
-            <td>$100</td>
-          </tr>
-          <tr>
-            <td>Lois</td>
-            <td>Griffin</td>
-            <td>$150</td>
-          </tr>
-          <tr>
-            <td>Joe</td>
-            <td>Swanson</td>
-            <td>$300</td>
-          </tr>
-          <tr>
-            <td>Cleveland</td>
-            <td>Brown</td>
-            <td>$250</td>
-          </tr>
+          {userData.WeightHeights.map((obj) => (
+            <tr key={obj.id}>
+              <td>{obj.weight}</td>
+              <td>{obj.height}</td>
+              <td>{obj.date}</td>
+            </tr>
+          ))}
         </tbody>
       </WHtable>
     </StyledSidebar>

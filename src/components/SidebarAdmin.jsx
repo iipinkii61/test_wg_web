@@ -3,7 +3,7 @@ import { StyledSidebar, WHtable } from "../styles/styledElement";
 export default function SidebarAdmin({ isOpen, setIsOpen }) {
   return (
     <StyledSidebar className="fadeInRight">
-      <div onClick={() => setIsOpen(!isOpen)}>
+      <div onClick={() => setIsOpen(!isOpen)} className="close">
         <svg
           viewBox="0 0 24 24"
           width="20px"

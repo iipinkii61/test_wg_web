@@ -5,6 +5,7 @@ import { AddButton, Table, UserLayout } from "../styles/styledUser";
 import Nav from "../components/Nav";
 import useAuth from "../hooks/useAuth";
 import * as dataApi from "../apis/user-api";
+import ForUpdate from "../components/ForUpdate";
 
 export default function UserPage() {
   const [isOpen, setIsOpen] = useState(false);
@@ -12,7 +13,7 @@ export default function UserPage() {
     authenticatedUser: { firstName, lastName, phone, idCard },
   } = useAuth();
   const [myData, setMyData] = useState([]);
-
+  const [update, setUpdate] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       const res = await dataApi.getData();
@@ -24,10 +25,7 @@ export default function UserPage() {
   const handleDelete = async (dataId) => {
     if (window.confirm("Are you sure to delete this?")) {
       await dataApi.deleteData(dataId);
-      alert("Success delete !");
       setMyData(myData.filter((el) => el.id !== dataId));
-    } else {
-      alert("You've cancelled delete");
     }
   };
 
@@ -53,50 +51,52 @@ export default function UserPage() {
               <th>Date</th>
               <th></th>
             </tr>
-            {myData.map((el) => (
+            {myData?.map((el) => (
               <tr key={el.id}>
                 <td>{el.weight}</td>
                 <td>{el.height}</td>
                 <td>{el.date}</td>
                 <td className="icon">
-                  <svg
-                    viewBox="0 0 24 24"
-                    width="1.25em"
-                    height="1.25em"
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="#000000"
-                  >
-                    <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
-                    <g
-                      id="SVGRepo_tracerCarrier"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    ></g>
-                    <g id="SVGRepo_iconCarrier">
-                      <g id="Complete">
-                        <g id="edit">
-                          <g>
-                            <path
-                              d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8"
-                              fill="none"
-                              stroke="#000000"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            ></path>
-                            <polygon
-                              fill="none"
-                              points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8"
-                              stroke="#000000"
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              strokeWidth="2"
-                            ></polygon>
+                  <div onClick={() => setUpdate(el)}>
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="1.25em"
+                      height="1.25em"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="#000000"
+                    >
+                      <g id="SVGRepo_bgCarrier" strokeWidth="0"></g>
+                      <g
+                        id="SVGRepo_tracerCarrier"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      ></g>
+                      <g id="SVGRepo_iconCarrier">
+                        <g id="Complete">
+                          <g id="edit">
+                            <g>
+                              <path
+                                d="M20,16v4a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V6A2,2,0,0,1,4,4H8"
+                                fill="none"
+                                stroke="#000000"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                              ></path>
+                              <polygon
+                                fill="none"
+                                points="12.5 15.8 22 6.2 17.8 2 8.3 11.5 8 16 12.5 15.8"
+                                stroke="#000000"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth="2"
+                              ></polygon>
+                            </g>
                           </g>
                         </g>
                       </g>
-                    </g>
-                  </svg>
+                    </svg>
+                  </div>
                   <div onClick={() => handleDelete(el.id)}>
                     <svg
                       fill="#000000"
@@ -127,7 +127,22 @@ export default function UserPage() {
             ))}
           </tbody>
         </Table>
-        {isOpen && <SidebarUser isOpen={isOpen} setIsOpen={setIsOpen} />}
+        {isOpen && (
+          <SidebarUser
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            myData={myData}
+            setMyData={setMyData}
+          />
+        )}
+        {update && (
+          <ForUpdate
+            update={update}
+            setUpdate={setUpdate}
+            myData={myData}
+            setMyData={setMyData}
+          />
+        )}
       </div>
     </UserLayout>
   );

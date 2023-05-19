@@ -1,24 +1,17 @@
 import { useState } from "react";
 import { StyledSidebarUser, DataInput } from "../styles/styledElement";
-import { Errormsg } from "../styles/styledRegister";
+// import { Errormsg } from "../styles/styledRegister";
 import { Button } from "../styles/styledLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
 import * as dataApi from "../apis/user-api";
 import validateData from "../validators/validate-data";
-// import { useNavigate } from "react-router-dom";
 
-export default function SidebarUser({ isOpen, setIsOpen, myData, setMyData }) {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const initialInput = {
-    weight: "",
-    height: "",
-    date: format(selectedDate, "yyyy-MM-dd"),
-  };
-  const [input, setInput] = useState(initialInput);
+export default function ForUpdate({ update, setUpdate, myData, setMyData }) {
+  const [selectedDate, setSelectedDate] = useState(new Date(update.date));
+  const [input, setInput] = useState(update);
   const [error, setError] = useState({});
-  // const navigate = useNavigate();
 
   const handleDateChange = (datePicker) => {
     setSelectedDate(datePicker); // ถ้าไม่ set state อันนี้ค่าในกล่อง input ที่หน้า ui จะไม่เปลี่ยน
@@ -33,25 +26,32 @@ export default function SidebarUser({ isOpen, setIsOpen, myData, setMyData }) {
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
-      const result = validateData(input);
+      const result = validateData({
+        weight: input.weight,
+        height: input.height,
+        date: input.date,
+      });
+      // validate แค่ 3 ตัว
       if (result) {
         setError(result);
       } else {
         setError({});
-        await dataApi.createData(input);
-        // alert("Data was sent!");
-        setIsOpen(false);
-        myData.push(input);
-        setMyData(myData);
+        await dataApi.updateData(input.id, input);
+        const newData = myData.map((obj) =>
+          obj.id === input.id ? { ...obj, ...input } : obj
+        );
+        setMyData(newData);
+        setUpdate(null);
       }
     } catch (err) {
       alert(err.response?.data.message);
     }
   };
+  console.log(input);
 
   return (
     <StyledSidebarUser>
-      <div onClick={() => setIsOpen(!isOpen)} className="close">
+      <div onClick={() => setUpdate(null)} className="close">
         <svg
           viewBox="0 0 24 24"
           width="20px"
@@ -81,7 +81,7 @@ export default function SidebarUser({ isOpen, setIsOpen, myData, setMyData }) {
       </div>
       <form onSubmit={handleSubmitForm}>
         <label>
-          Weight:{" "}
+          WeightUPdsf:{" "}
           <DataInput
             name="weight"
             value={input.weight}

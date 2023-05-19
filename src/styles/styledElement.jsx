@@ -29,7 +29,7 @@ export const StyledSidebar = styled.div`
     text-align: center;
     margin-bottom: 30px;
   }
-  div {
+  .close {
     position: absolute;
     top: 15px;
     right: 15px;
@@ -42,6 +42,16 @@ export const StyledSidebarUser = styled(StyledSidebar)`
     display: flex;
     flex-direction: column;
   }
+`;
+
+export const DataInput = styled.input.attrs({ type: "text" })`
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid grey;
+  font-family: "Ysabeau", sans-serif;
+  font-size: 1em;
+  width: 10vw;
+  margin-bottom: 20px;
 `;
 
 export const WHtable = styled.table`

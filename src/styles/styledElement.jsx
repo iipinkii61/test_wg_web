@@ -34,6 +34,9 @@ export const StyledSidebar = styled.div`
     top: 15px;
     right: 15px;
   }
+  .center {
+    text-align: center;
+  }
 `;
 
 export const StyledSidebarUser = styled(StyledSidebar)`
@@ -54,12 +57,7 @@ export const DataInput = styled.input.attrs({ type: "text" })`
   margin-bottom: 20px;
   margin-left: 8px;
 `;
-export const StyledDate = styled.div`
-  background: red;
-  input {
-    background: aqua;
-  }
-`;
+
 export const LabelDate = styled.label`
   display: flex;
   input {
@@ -77,11 +75,30 @@ export const LabelDate = styled.label`
 export const WHtable = styled.table`
   border-collapse: collapse;
   width: 100%;
-
   th,
   td {
     padding: 8px;
     text-align: left;
     border-bottom: 1px solid #ddd;
+  }
+`;
+
+export const DateInputAdmin = styled.div`
+  display: flex;
+  align-items: center;
+  width: 18vw;
+  margin: 20px 0;
+  input {
+    background: transparent;
+    border: 1px solid grey;
+    border-radius: 4px;
+    font-family: "Ysabeau", sans-serif;
+    font-size: 1.25em;
+    width: 10vw;
+    padding: 0 0 5px 10px;
+  }
+  button {
+    font-family: "Ysabeau", sans-serif;
+    font-size: 1.25em;
   }
 `;

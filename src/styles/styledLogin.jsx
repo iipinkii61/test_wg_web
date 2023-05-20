@@ -62,9 +62,3 @@ export const Input = styled.input.attrs({ type: "text" })`
 export const Password = styled(Input).attrs({
   type: "password",
 })``;
-
-export const IsAdmin = styled.label`
-  display: flex;
-  gap: 8px;
-  width: fit;
-`;

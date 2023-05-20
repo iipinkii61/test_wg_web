@@ -66,6 +66,7 @@ export default function LoginPage() {
 
           <label>Password</label>
           <Password
+            type="password"
             name="password"
             value={input.password}
             onChange={handleChangeInput}

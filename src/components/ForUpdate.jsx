@@ -122,7 +122,9 @@ export default function ForUpdate({ update, setUpdate, myData, setMyData }) {
             onChange={handleDateChange}
           />
         </LabelDate>
-        <Button $primary>Submit</Button>
+        <div className="center">
+          <Button $primary>Submit</Button>
+        </div>
       </form>
     </StyledSidebarUser>
   );

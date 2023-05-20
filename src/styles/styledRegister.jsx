@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Input } from "./styledLogin";
+import { Input, Password } from "./styledLogin";
 
 export const RegisterForm = styled.form`
   height: 70vh;
@@ -16,7 +16,9 @@ export const RegisterInput = styled(Input)`
   font-size: 14px;
 `;
 
-export const RegisterPW = styled(RegisterInput).attrs({ type: "password" })``;
+export const RegisterPW = styled(Password)`
+  font-size: 14px;
+`;
 
 export const Errormsg = styled.p`
   color: red;

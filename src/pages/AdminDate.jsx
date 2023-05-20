@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import * as adminApi from "../apis/admin-api";
-import { WHtable } from "../styles/styledElement";
+import { WHtable, DateInputAdmin } from "../styles/styledElement";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format } from "date-fns";
@@ -26,20 +26,23 @@ export default function AdminDate() {
 
   return (
     <>
-      <DatePicker
-        dateFormat="yyyy-MM-dd"
-        selected={selectedDate}
-        onChange={handleDateChange}
-      />
-      <button
-        onClick={() =>
-          setFilteredData(
-            allData.filter((obj) => obj.date === `${formattedDate}`)
-          )
-        }
-      >
-        Submit
-      </button>
+      <DateInputAdmin>
+        <DatePicker
+          dateFormat="yyyy-MM-dd"
+          selected={selectedDate}
+          onChange={handleDateChange}
+        />
+        <button
+          onClick={() =>
+            setFilteredData(
+              allData.filter((obj) => obj.date === `${formattedDate}`)
+            )
+          }
+        >
+          Search
+        </button>
+      </DateInputAdmin>
+
       <WHtable>
         <tbody>
           <tr>

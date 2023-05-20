@@ -120,7 +120,9 @@ export default function SidebarUser({ isOpen, setIsOpen, myData, setMyData }) {
             onChange={handleDateChange}
           />
         </LabelDate>
-        <Button $primary>Submit</Button>
+        <div className="center">
+          <Button $primary>Submit</Button>
+        </div>
       </form>
     </StyledSidebarUser>
   );

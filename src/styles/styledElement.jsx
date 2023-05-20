@@ -52,6 +52,26 @@ export const DataInput = styled.input.attrs({ type: "text" })`
   font-size: 1em;
   width: 10vw;
   margin-bottom: 20px;
+  margin-left: 8px;
+`;
+export const StyledDate = styled.div`
+  background: red;
+  input {
+    background: aqua;
+  }
+`;
+export const LabelDate = styled.label`
+  display: flex;
+  input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid grey;
+    font-family: "Ysabeau", sans-serif;
+    font-size: 1em;
+    width: 10vw;
+    margin-bottom: 20px;
+    margin-left: 8px;
+  }
 `;
 
 export const WHtable = styled.table`

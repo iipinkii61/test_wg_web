@@ -1,6 +1,10 @@
 import { useState } from "react";
-import { StyledSidebarUser, DataInput } from "../styles/styledElement";
-// import { Errormsg } from "../styles/styledRegister";
+import {
+  StyledSidebarUser,
+  DataInput,
+  LabelDate,
+} from "../styles/styledElement";
+import { Errormsg } from "../styles/styledRegister";
 import { Button } from "../styles/styledLogin";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -29,6 +33,7 @@ export default function ForUpdate({ update, setUpdate, myData, setMyData }) {
       const result = validateData({
         weight: input.weight,
         height: input.height,
+        waist: input.waist,
         date: input.date,
       });
       // validate แค่ 3 ตัว
@@ -37,17 +42,16 @@ export default function ForUpdate({ update, setUpdate, myData, setMyData }) {
       } else {
         setError({});
         await dataApi.updateData(input.id, input);
-        const newData = myData.map((obj) =>
+        const newData = myData.WeightHeights.map((obj) =>
           obj.id === input.id ? { ...obj, ...input } : obj
         );
-        setMyData(newData);
+        setMyData({ ...myData, WeightHeights: newData });
         setUpdate(null);
       }
     } catch (err) {
       alert(err.response?.data.message);
     }
   };
-  console.log(input);
 
   return (
     <StyledSidebarUser>
@@ -81,33 +85,43 @@ export default function ForUpdate({ update, setUpdate, myData, setMyData }) {
       </div>
       <form onSubmit={handleSubmitForm}>
         <label>
-          Weight:{" "}
+          Weight (kg):{" "}
           <DataInput
             name="weight"
             value={input.weight}
             onChange={handleChangeInput}
           />
         </label>
-        {/* <Errormsg>ere</Errormsg> */}
+        <Errormsg>{error.weight}</Errormsg>
 
         <label>
-          Height:{" "}
+          Height (cm):{" "}
           <DataInput
             name="height"
             value={input.height}
             onChange={handleChangeInput}
           />
         </label>
+        <Errormsg>{error.height}</Errormsg>
+
         <label>
-          Date:
-          <div>
-            <DatePicker
-              dateFormat="yyyy-MM-dd"
-              selected={selectedDate}
-              onChange={handleDateChange}
-            />
-          </div>
+          Waist (inches):{" "}
+          <DataInput
+            name="waist"
+            value={input.waist}
+            onChange={handleChangeInput}
+          />
         </label>
+        <Errormsg>{error.waist}</Errormsg>
+
+        <LabelDate>
+          Date:
+          <DatePicker
+            dateFormat="yyyy-MM-dd"
+            selected={selectedDate}
+            onChange={handleDateChange}
+          />
+        </LabelDate>
         <Button $primary>Submit</Button>
       </form>
     </StyledSidebarUser>

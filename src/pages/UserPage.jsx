@@ -1,21 +1,15 @@
+import { AddButton, Table, UserLayout } from "../styles/styledUser";
 import { useEffect, useState } from "react";
 import SidebarUser from "../components/SidebarUser";
 import UserInfo from "../components/UserInfo";
-import { AddButton, Table, UserLayout } from "../styles/styledUser";
 import Nav from "../components/Nav";
-// import useAuth from "../hooks/useAuth";
-import * as dataApi from "../apis/user-api";
 import ForUpdate from "../components/ForUpdate";
-import { useNavigate } from "react-router-dom";
+import * as dataApi from "../apis/user-api";
 
 export default function UserPage() {
   const [isOpen, setIsOpen] = useState(false);
-  // const {
-  //   authenticatedUser: { firstName, lastName, phone, idCard },
-  // } = useAuth();
   const [myData, setMyData] = useState(null);
   const [update, setUpdate] = useState(null);
-  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       const res = await dataApi.getData();
@@ -27,10 +21,10 @@ export default function UserPage() {
   const handleDelete = async (dataId) => {
     if (window.confirm("Are you sure to delete this?")) {
       await dataApi.deleteData(dataId);
-      navigate("/user");
       const newArrData = myData.WeightHeights.filter((el) => el.id !== dataId);
-      myData.WeightHeights = newArrData;
-      setMyData(myData);
+
+      setMyData({ ...myData, WeightHeights: newArrData });
+      console.log(myData);
     }
   };
 
@@ -51,8 +45,9 @@ export default function UserPage() {
         <Table>
           <tbody>
             <tr>
-              <th>Weight</th>
-              <th>Height</th>
+              <th>Weight (kg)</th>
+              <th>Height (cm)</th>
+              <th>Waist (inches)</th>
               <th>Date</th>
               <th></th>
             </tr>
@@ -60,6 +55,7 @@ export default function UserPage() {
               <tr key={el.id}>
                 <td>{el.weight}</td>
                 <td>{el.height}</td>
+                <td>{el.waist}</td>
                 <td>{el.date}</td>
                 <td className="icon">
                   <div onClick={() => setUpdate(el)}>

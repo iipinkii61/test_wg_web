@@ -45,8 +45,9 @@ export default function AdminDate() {
           <tr>
             <th>Username</th>
             <th>Name</th>
-            <th>Weight</th>
-            <th>Height</th>
+            <th>Weight (kg)</th>
+            <th>Height (cm)</th>
+            <th>Waist (inches)</th>
             <th>Date</th>
           </tr>
           {filteredData?.map((obj) => (
@@ -57,6 +58,7 @@ export default function AdminDate() {
               </td>
               <td>{obj.weight}</td>
               <td>{obj.height}</td>
+              <td>{obj.waist}</td>
               <td>{obj.date}</td>
             </tr>
           ))}

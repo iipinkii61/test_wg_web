@@ -35,14 +35,16 @@ export default function SidebarAdmin({ setIsOpen, userData }) {
       <WHtable>
         <tbody>
           <tr>
-            <th>Weight</th>
-            <th>Height</th>
+            <th>Weight (kg)</th>
+            <th>Height (cm)</th>
+            <th>Waist (inches)</th>
             <th>Date</th>
           </tr>
           {userData.WeightHeights.map((obj) => (
             <tr key={obj.id}>
               <td>{obj.weight}</td>
               <td>{obj.height}</td>
+              <td>{obj.waist}</td>
               <td>{obj.date}</td>
             </tr>
           ))}

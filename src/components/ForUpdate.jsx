@@ -81,7 +81,7 @@ export default function ForUpdate({ update, setUpdate, myData, setMyData }) {
       </div>
       <form onSubmit={handleSubmitForm}>
         <label>
-          WeightUPdsf:{" "}
+          Weight:{" "}
           <DataInput
             name="weight"
             value={input.weight}

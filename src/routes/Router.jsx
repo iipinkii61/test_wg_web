@@ -4,8 +4,9 @@ import RegisterPage from "../pages/RegisterPage";
 import UserPage from "../pages/UserPage";
 import AdminPage from "../pages/AdminPage";
 import SetAsDefaultPage from "../components/SetAsDefaultPage";
-import ProtectedRoute from "../components/ProtectedRoute";
-
+import AdminLayout from "../layout/AdminLayout";
+import AdminDate from "../pages/AdminDate";
+import { ProtectAdmin, ProtectUser } from "../components/ProtectedRoute";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -26,18 +27,27 @@ const router = createBrowserRouter([
   {
     path: "/user",
     element: (
-      <ProtectedRoute>
+      <ProtectUser>
         <UserPage />
-      </ProtectedRoute>
+      </ProtectUser>
     ),
   },
   {
-    path: "/admin",
     element: (
-      <ProtectedRoute>
-        <AdminPage />
-      </ProtectedRoute>
+      <ProtectAdmin>
+        <AdminLayout />
+      </ProtectAdmin>
     ),
+    children: [
+      {
+        path: "/admin",
+        element: <AdminPage />,
+      },
+      {
+        path: "/admin/date",
+        element: <AdminDate />,
+      },
+    ],
   },
 ]);
 

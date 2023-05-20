@@ -3,17 +3,19 @@ import SidebarUser from "../components/SidebarUser";
 import UserInfo from "../components/UserInfo";
 import { AddButton, Table, UserLayout } from "../styles/styledUser";
 import Nav from "../components/Nav";
-import useAuth from "../hooks/useAuth";
+// import useAuth from "../hooks/useAuth";
 import * as dataApi from "../apis/user-api";
 import ForUpdate from "../components/ForUpdate";
+import { useNavigate } from "react-router-dom";
 
 export default function UserPage() {
   const [isOpen, setIsOpen] = useState(false);
-  const {
-    authenticatedUser: { firstName, lastName, phone, idCard },
-  } = useAuth();
-  const [myData, setMyData] = useState([]);
+  // const {
+  //   authenticatedUser: { firstName, lastName, phone, idCard },
+  // } = useAuth();
+  const [myData, setMyData] = useState(null);
   const [update, setUpdate] = useState(null);
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       const res = await dataApi.getData();
@@ -25,7 +27,10 @@ export default function UserPage() {
   const handleDelete = async (dataId) => {
     if (window.confirm("Are you sure to delete this?")) {
       await dataApi.deleteData(dataId);
-      setMyData(myData.filter((el) => el.id !== dataId));
+      navigate("/user");
+      const newArrData = myData.WeightHeights.filter((el) => el.id !== dataId);
+      myData.WeightHeights = newArrData;
+      setMyData(myData);
     }
   };
 
@@ -33,12 +38,12 @@ export default function UserPage() {
     <UserLayout>
       <Nav />
       <div className="page">
-        <h1>Welcome {firstName}!</h1>
+        <h1>Welcome {myData?.firstName}!</h1>
         <UserInfo
-          firstName={firstName}
-          lastName={lastName}
-          phone={phone}
-          idCard={idCard}
+          firstName={myData?.firstName}
+          lastName={myData?.lastName}
+          phone={myData?.phone}
+          idCard={myData?.idCard}
         />
         <div className="simple">
           <AddButton onClick={() => setIsOpen(!isOpen)}>+ Add data</AddButton>
@@ -51,7 +56,7 @@ export default function UserPage() {
               <th>Date</th>
               <th></th>
             </tr>
-            {myData?.map((el) => (
+            {myData?.WeightHeights?.map((el) => (
               <tr key={el.id}>
                 <td>{el.weight}</td>
                 <td>{el.height}</td>

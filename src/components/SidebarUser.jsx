@@ -41,7 +41,7 @@ export default function SidebarUser({ isOpen, setIsOpen, myData, setMyData }) {
         await dataApi.createData(input);
         // alert("Data was sent!");
         setIsOpen(false);
-        myData.push(input);
+        myData.WeightHeights.push(input);
         setMyData(myData);
       }
     } catch (err) {
